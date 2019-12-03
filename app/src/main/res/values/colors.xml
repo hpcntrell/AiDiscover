@@ -3,4 +3,57 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="lightgreen">#43ed79</color>
+    <color name="deepgreen">#00bb88</color>
+    <color name="green70">#b300bb88</color>
+    <color name="deepgreen50">#8000bb88</color>
+    <color name="purpley">#734cf9</color>
+    <color name="yelloworange">#ffd700</color>
+    <color name="brightorange">#ff6432</color>
+    <color name="brightorange70">#b3ff6432</color>
+    <color name="purpley50">#7F734cf9</color>
+    <color name="dh_01">#26734cf9</color>
+    <color name="dh_02">#19ffffff</color>
+    <color name="dp_01">#1ed969</color>
+    <color name="vp_02">#9650ff</color>
+    <color name="hm_01">#ffd640</color>
+    <color name="hm_02">#ffa318</color>
+    <color name="lm_01">#260dd28d</color>
+    <color name="lm_02">#19ffffff</color>
+    <color name="ss_02">#fbac48</color>
+    <color name="light_orange">#fbac48</color>
+
+    <color name="yellow">#ffec6e</color>
+
+    <color name="story_gradient_start">#00D59B</color>
+    <color name="story_gradient_end">#8DFF8C</color>
+
+    <color name="us_black">#222222</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white60">#99FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="facebook">#4D71C8</color>
+
+
+    <color name="green">#0dd28d</color>
+
+    <color name="dp_02">#5fc2ff</color>
+    <color name="ss_01">#ff4848</color>
+    <color name="grey1">#f8f9fa</color>
+    <color name="grey2">#f1f3f5</color>
+    <color name="grey3">#e9ecef</color>
+    <color name="grey4">#dee2e6</color>
+    <color name="grey5">#adb5bc</color>
+    <color name="grey6">#868e96</color>
+    <color name="grey7">#495057</color>
+    <color name="grey8">#495057</color>
+    <!--<color name="grey8">#212528</color>-->
+
+    <color name="dialog_dim_bg">#80000000</color>
+    <color name="dialog_userguide_bg">#99000000</color>
+    <color name="color_my_discoverpass">#1ed969</color>
 </resources>

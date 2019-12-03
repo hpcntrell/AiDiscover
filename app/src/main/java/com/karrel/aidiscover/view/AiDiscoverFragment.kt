@@ -15,15 +15,20 @@ import androidx.recyclerview.widget.*
 import com.daimajia.easing.Skill
 import com.karrel.aidiscover.R
 import com.karrel.aidiscover.ext.dp
-import com.karrel.aidiscover.view.epoxy.DiscoverImageController
-import com.karrel.aidiscover.view.epoxy.SelectedImageController
+import com.karrel.aidiscover.view.epoxy.discover.DiscoverImageController
+import com.karrel.aidiscover.view.epoxy.selected.SelectedImageController
+import com.karrel.aidiscover.view.item.DiscoverRecommendItem
 import kotlinx.android.synthetic.main.fragment_ai_discover.*
 
 class AiDiscoverFragment : Fragment() {
 
-    private val selectedImageController = SelectedImageController()
-    private val discoverImageController by lazy { DiscoverImageController(context!!) }
-    private val discoverLayoutManager = GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
+    private val selectedImageController =
+        SelectedImageController()
+    private val discoverImageController by lazy {
+        DiscoverImageController(context!!)
+    }
+    private val discoverLayoutManager =
+        GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
 
     private val windowWidth: Int
         get() = run {
@@ -61,11 +66,25 @@ class AiDiscoverFragment : Fragment() {
 
         startDiscoverRecyclerViewAnim()
 
+        discoverImageController.setData(createDiscoverList())
+    }
 
+    private fun createDiscoverList(): List<DiscoverRecommendItem>? {
+        val list = arrayListOf<DiscoverRecommendItem>()
+        list.add((DiscoverRecommendItem(R.drawable.woman1, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman2, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman3, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman4, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman5, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman6, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman7, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman8, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman9, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman10, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman11, "Annbel, 20")))
+        list.add((DiscoverRecommendItem(R.drawable.woman12, "Annbel, 20")))
 
-//        LinearSnapHelper().attachToRecyclerView(ervAiDiscover)
-
-        discoverImageController.setData(emptyList())
+        return list
     }
 
     private fun startDiscoverRecyclerViewAnim() {
@@ -78,7 +97,8 @@ class AiDiscoverFragment : Fragment() {
             addUpdateListener {
                 val animatedValue = it.animatedValue as Float
 
-                val fraction = Skill.CubicEaseOut.getMethod(animatedValue).evaluate(it.animatedFraction, 1f, 0f)
+                val fraction = Skill.CubicEaseOut.getMethod(animatedValue)
+                    .evaluate(it.animatedFraction, 1f, 0f)
                 ervAiDiscover.translationX = windowWidth * fraction
             }
 

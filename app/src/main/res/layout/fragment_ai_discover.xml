@@ -20,15 +20,14 @@
 
 
     <com.airbnb.epoxy.EpoxyRecyclerView
-        android:background="@color/colorAccent"
         android:id="@+id/ervAiDiscover"
         android:visibility="invisible"
         tools:visibility="visible"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toTopOf="@id/btnHistory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

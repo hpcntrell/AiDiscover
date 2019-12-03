@@ -1,4 +1,4 @@
-package com.karrel.aidiscover.view.epoxy
+package com.karrel.aidiscover.view.epoxy.selected
 
 import com.airbnb.epoxy.TypedEpoxyController
 

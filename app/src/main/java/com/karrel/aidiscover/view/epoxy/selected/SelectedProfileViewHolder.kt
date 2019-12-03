@@ -1,4 +1,4 @@
-package com.karrel.aidiscover.view.epoxy
+package com.karrel.aidiscover.view.epoxy.selected
 
 import android.content.Context
 import android.util.AttributeSet
