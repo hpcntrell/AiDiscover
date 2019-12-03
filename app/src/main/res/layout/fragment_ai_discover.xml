@@ -20,7 +20,10 @@
 
 
     <com.airbnb.epoxy.EpoxyRecyclerView
+        android:background="@color/colorAccent"
         android:id="@+id/ervAiDiscover"
+        android:visibility="invisible"
+        tools:visibility="visible"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"

@@ -11,20 +11,13 @@ import com.karrel.aidiscover.R
 import kotlinx.android.synthetic.main.viewholder_ai_discover_2.view.*
 
 @ModelView(autoLayout = ModelView.Size.WRAP_WIDTH_MATCH_HEIGHT)
-class DiscoverViewHolder2 @JvmOverloads constructor(
+class DiscoverFooterViewHolder @JvmOverloads constructor(
     context: Context,
     attrs:AttributeSet? = null,
     defStyleAttr:Int = 0
 ):ConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
-        View.inflate(context, R.layout.viewholder_ai_discover_2, this)
-    }
-
-    @ModelProp
-    fun setWidth(width:Int){
-        layoutParams.width = width
-
-        requestLayout()
+        View.inflate(context, R.layout.viewholder_ai_footer, this)
     }
 }

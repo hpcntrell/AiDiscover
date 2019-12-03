@@ -38,4 +38,10 @@ dependencies {
     // Epoxy
     implementation "com.airbnb.android:epoxy:$epoxy_version"
     kapt "com.airbnb.android:epoxy-processor:$epoxy_version"
+
+    implementation 'com.arasthel:spannedgridlayoutmanager:3.0.2'
+
+    implementation 'com.airbnb.android:epoxy-paging:2.18.0'
+
+    implementation 'com.daimajia.easing:library:2.1@aar'
 }
