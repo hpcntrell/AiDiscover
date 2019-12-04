@@ -23,6 +23,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -48,4 +57,10 @@ dependencies {
 
     // facebook
     implementation 'com.facebook.fresco:fresco:1.13.0'
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents:$autodispose_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rxbinding_version"
 }

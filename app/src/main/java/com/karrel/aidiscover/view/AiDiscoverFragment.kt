@@ -19,13 +19,16 @@ import com.karrel.aidiscover.view.epoxy.discover.DiscoverImageController
 import com.karrel.aidiscover.view.epoxy.selected.SelectedImageController
 import com.karrel.aidiscover.view.item.DiscoverRecommendItem
 import kotlinx.android.synthetic.main.fragment_ai_discover.*
+import java.util.*
 
 class AiDiscoverFragment : Fragment() {
 
     private val selectedImageController =
         SelectedImageController()
     private val discoverImageController by lazy {
-        DiscoverImageController(context!!)
+        DiscoverImageController(context!!).apply {
+            onItemClickListener = onDiscoverItemClickListener
+        }
     }
     private val discoverLayoutManager =
         GridLayoutManager(context, 2, RecyclerView.HORIZONTAL, false)
@@ -37,6 +40,37 @@ class AiDiscoverFragment : Fragment() {
             return metrics.widthPixels
         }
 
+    private val selectedQueue = ArrayDeque<DiscoverRecommendItem>()
+
+    private val onDiscoverItemClickListener: ((index: Int, item: DiscoverRecommendItem) -> Unit) = { index: Int, item: DiscoverRecommendItem ->
+        addSelectedItem(discoverItemList[index])
+
+        discoverItemList.removeAt(index)
+        discoverImageController.requestModelBuild()
+    }
+
+    private var discoverItemList = createItemList()
+
+    private fun addSelectedItem(item: DiscoverRecommendItem){
+        selectedQueue.add(item)
+
+        selectedImageController.setData(selectedQueue.toList())
+    }
+
+    private fun createItemList() = arrayListOf(
+            DiscoverRecommendItem(R.drawable.woman1, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman2, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman3, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman4, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman5, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman6, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman7, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman8, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman9, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman10, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman11, "Annbel, 20"),
+            DiscoverRecommendItem(R.drawable.woman12, "Annbel, 20")
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +87,9 @@ class AiDiscoverFragment : Fragment() {
         setupAiDiscoverRecyclerView()
 
         btnHistory.setOnClickListener {
+            discoverItemList = createItemList()
+            discoverImageController.setData(discoverItemList)
+            discoverImageController.requestModelBuild()
             startDiscoverRecyclerViewAnim()
         }
     }
@@ -61,30 +98,14 @@ class AiDiscoverFragment : Fragment() {
         ervAiDiscover.apply {
             layoutManager = discoverLayoutManager
 
-            setController(discoverImageController)
+            setControllerAndBuildModels(discoverImageController)
+//            setController(discoverImageController)
         }
 
         startDiscoverRecyclerViewAnim()
 
-        discoverImageController.setData(createDiscoverList())
-    }
-
-    private fun createDiscoverList(): List<DiscoverRecommendItem>? {
-        val list = arrayListOf<DiscoverRecommendItem>()
-        list.add((DiscoverRecommendItem(R.drawable.woman1, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman2, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman3, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman4, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman5, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman6, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman7, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman8, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman9, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman10, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman11, "Annbel, 20")))
-        list.add((DiscoverRecommendItem(R.drawable.woman12, "Annbel, 20")))
-
-        return list
+        discoverImageController.setData(discoverItemList)
+        discoverImageController.requestModelBuild()
     }
 
     private fun startDiscoverRecyclerViewAnim() {

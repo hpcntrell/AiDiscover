@@ -3,12 +3,15 @@ package com.karrel.aidiscover.view.epoxy.discover
 import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
+import com.airbnb.epoxy.AsyncEpoxyController
 import com.airbnb.epoxy.TypedEpoxyController
 import com.karrel.aidiscover.ext.dp
 import com.karrel.aidiscover.view.item.DiscoverRecommendItem
 
 class DiscoverImageController(private val context: Context) :
-    TypedEpoxyController<List<DiscoverRecommendItem>>() {
+    AsyncEpoxyController() {
+
+    var onItemClickListener: ((index: Int, item: DiscoverRecommendItem) -> Unit)? = null
 
     private val windowWidth: Int
         get() = run {
@@ -17,8 +20,13 @@ class DiscoverImageController(private val context: Context) :
             return metrics.widthPixels
         }
 
+    private var data: List<DiscoverRecommendItem>? = null
 
-    override fun buildModels(data: List<DiscoverRecommendItem>?) {
+    fun setData(data: List<DiscoverRecommendItem>?){
+        this.data = data
+    }
+
+    override fun buildModels() {
 
         lottieViewHolder {
             id(Int.MIN_VALUE)
@@ -36,6 +44,9 @@ class DiscoverImageController(private val context: Context) :
                 width(width)
                 image(item.resId)
                 name(item.name)
+                onClickListener {
+                    onItemClickListener?.invoke(index, item)
+                }
             }
         }
 

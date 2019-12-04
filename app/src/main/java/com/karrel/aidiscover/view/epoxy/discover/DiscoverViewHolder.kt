@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.karrel.aidiscover.R
+import com.karrel.aidiscover.ext.setOnDebouncedClickListener
 import kotlinx.android.synthetic.main.viewholder_ai_discover.view.*
 
 @ModelView(autoLayout = ModelView.Size.WRAP_WIDTH_MATCH_HEIGHT)
@@ -36,5 +37,10 @@ class DiscoverViewHolder @JvmOverloads constructor(
     @ModelProp
     fun setName(text: String) {
         tvName.text = text
+    }
+
+    @ModelProp(ModelProp.Option.DoNotHash)
+    fun setOnClickListener(f : () -> Unit) {
+        ivDiscover.setOnDebouncedClickListener { f() }
     }
 }
