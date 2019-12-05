@@ -23,6 +23,6 @@ class SelectedProfileViewHolder @JvmOverloads constructor(
 
     @ModelProp
     fun setImage(@DrawableRes resImg:Int) {
-        ivCircle.setImageResource(resImg)
+        ivCircle.setActualImageResource(resImg)
     }
 }

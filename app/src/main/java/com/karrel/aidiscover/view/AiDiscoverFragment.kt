@@ -10,16 +10,23 @@ import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
 import com.daimajia.easing.Skill
 import com.karrel.aidiscover.R
 import com.karrel.aidiscover.ext.dp
+import com.karrel.aidiscover.ext.onDestroy
+import com.karrel.aidiscover.ext.startActivity
 import com.karrel.aidiscover.view.epoxy.discover.DiscoverImageController
 import com.karrel.aidiscover.view.epoxy.selected.SelectedImageController
 import com.karrel.aidiscover.view.item.DiscoverRecommendItem
+import com.karrel.aidiscover.viewmodel.AiDiscoverViewModel
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_ai_discover.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class AiDiscoverFragment : Fragment() {
 
@@ -42,11 +49,36 @@ class AiDiscoverFragment : Fragment() {
 
     private val selectedQueue = ArrayDeque<DiscoverRecommendItem>()
 
+    private val viewModel: AiDiscoverViewModel = AiDiscoverViewModel()
+
     private val onDiscoverItemClickListener: ((index: Int, item: DiscoverRecommendItem) -> Unit) = { index: Int, item: DiscoverRecommendItem ->
+
+        viewModel.addSelectedItem(index, item)
+
         addSelectedItem(discoverItemList[index])
 
         discoverItemList.removeAt(index)
         discoverImageController.requestModelBuild()
+
+        val isSelectedAll = selectedQueue.size == 5
+        if(isSelectedAll){
+            showProgress()
+            mixCandidate()
+        }
+    }
+
+    private fun showProgress() {
+        progress.isVisible = true
+        ervAiDiscover.isVisible = false
+    }
+
+    private fun mixCandidate() {
+        Observable.timer(2, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .onDestroy(this)
+            .subscribe {
+                startActivity<AiMixActivity>()
+            }
     }
 
     private var discoverItemList = createItemList()
