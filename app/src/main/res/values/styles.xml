@@ -12,86 +12,111 @@
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    <style name="Title.Sp44" parent="Title">
+
+    <style name="Title44" parent="Title">
         <item name="android:textSize">44sp</item>
     </style>
-    <style name="Title.Sp30" parent="Title">
+
+    <style name="Title30" parent="Title">
         <item name="android:textSize">30sp</item>
     </style>
-    <style name="Title.Sp28" parent="Title">
+
+    <style name="Title28" parent="Title">
         <item name="android:textSize">28sp</item>
     </style>
-    <style name="Title.Sp24" parent="Title">
+
+    <style name="Title24" parent="Title">
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="Subtitle">
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    <style name="Subtitle.Sp22" parent="Subtitle">
+
+    <style name="Subtitle22" parent="Subtitle">
         <item name="android:textSize">22sp</item>
     </style>
-    <style name="Subtitle.Sp20" parent="Subtitle">
+
+    <style name="Subtitle20" parent="Subtitle">
         <item name="android:textSize">20sp</item>
     </style>
-    <style name="Subtitle.Sp18" parent="Subtitle">
+
+    <style name="Subtitle18" parent="Subtitle">
         <item name="android:textSize">18sp</item>
     </style>
-    <style name="Subtitle.Sp16" parent="Subtitle">
+
+    <style name="Subtitle16" parent="Subtitle">
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="Body">
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="Body.Regular" parent="Body">
         <item name="android:fontFamily">@font/regular</item>
     </style>
-    <style name="Body.Regular.Sp20" parent="Body.Regular">
+
+    <style name="Body20" parent="Body.Regular">
         <item name="android:textSize">20sp</item>
     </style>
-    <style name="Body.Regular.Sp18" parent="Body.Regular">
+
+    <style name="Body18" parent="Body.Regular">
         <item name="android:textSize">18sp</item>
     </style>
-    <style name="Body.Regular.Sp11" parent="Body.Regular">
+
+    <style name="Body11" parent="Body.Regular">
         <item name="android:textSize">11sp</item>
     </style>
+
     <style name="Body.Medium" parent="Body">
         <item name="android:fontFamily">@font/medium</item>
     </style>
-    <style name="Body.Medium.Sp16" parent="Body.Medium">
+
+    <style name="Body16" parent="Body.Medium">
         <item name="android:textSize">16sp</item>
     </style>
-    <style name="Body.Medium.Sp15" parent="Body.Medium">
+
+    <style name="Body15" parent="Body.Medium">
         <item name="android:textSize">15sp</item>
     </style>
-    <style name="Body.Medium.Sp14" parent="Body.Medium">
+
+    <style name="Body14" parent="Body.Medium">
         <item name="android:textSize">14sp</item>
     </style>
-    <style name="Body.Medium.Sp13" parent="Body.Medium">
+
+    <style name="Body13" parent="Body.Medium">
         <item name="android:textSize">13sp</item>
     </style>
-    <style name="Body.Medium.Sp12" parent="Body.Medium">
+
+    <style name="Body12" parent="Body.Medium">
         <item name="android:textSize">12sp</item>
     </style>
-    <style name="Body.Medium.Sp10" parent="Body.Medium">
+
+    <style name="Body10" parent="Body.Medium">
         <item name="android:textSize">10sp</item>
     </style>
+
     <style name="Message">
         <item name="android:fontFamily">@font/regular</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    <style name="Message.Sp18" parent="Message">
+
+    <style name="Message18" parent="Message">
         <item name="android:fontFamily">@font/medium</item>
         <item name="android:textSize">18sp</item>
     </style>
-    <style name="Message.Sp15" parent="Message">
+
+    <style name="Message15" parent="Message">
         <item name="android:textSize">15sp</item>
     </style>
-    <style name="Message.Sp12" parent="Message">
+
+    <style name="Message12" parent="Message">
         <item name="android:textSize">12sp</item>
     </style>
-    <style name="Message.Sp10" parent="Message">
+
+    <style name="Message10" parent="Message">
         <item name="android:textSize">10sp</item>
     </style>
-
 </resources>

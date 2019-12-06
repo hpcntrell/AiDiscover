@@ -30,8 +30,7 @@ import java.util.concurrent.TimeUnit
 
 class AiDiscoverFragment : Fragment() {
 
-    private val selectedImageController =
-        SelectedImageController()
+    private val selectedImageController = SelectedImageController()
     private val discoverImageController by lazy {
         DiscoverImageController(context!!).apply {
             onItemClickListener = onDiscoverItemClickListener

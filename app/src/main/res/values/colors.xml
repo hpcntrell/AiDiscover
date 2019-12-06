@@ -56,4 +56,6 @@
     <color name="dialog_dim_bg">#80000000</color>
     <color name="dialog_userguide_bg">#99000000</color>
     <color name="color_my_discoverpass">#1ed969</color>
+
+    <color name="sunsetorange">#ff4848</color>
 </resources>
