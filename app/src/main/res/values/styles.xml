@@ -42,6 +42,9 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Subtitle19" parent="Subtitle">
+        <item name="android:textSize">19sp</item>
+    </style>
     <style name="Subtitle18" parent="Subtitle">
         <item name="android:textSize">18sp</item>
     </style>
