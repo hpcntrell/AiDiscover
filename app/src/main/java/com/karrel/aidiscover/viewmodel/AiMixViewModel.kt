@@ -36,6 +36,6 @@ class AiMixViewModel {
             DiscoverRecommendItem(R.drawable.woman8, "Annbel, 20")
         )
 
-        return Observable.just(list).delay(2, TimeUnit.SECONDS)
+        return Observable.just(list).delay(1000, TimeUnit.MILLISECONDS)
     }
 }

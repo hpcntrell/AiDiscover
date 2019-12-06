@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
 import com.daimajia.easing.Skill
 import com.karrel.aidiscover.R
+import com.karrel.aidiscover.ext.debouncedClicks
 import com.karrel.aidiscover.ext.dp
 import com.karrel.aidiscover.ext.onDestroy
 import com.karrel.aidiscover.ext.startActivity
@@ -24,6 +25,7 @@ import com.karrel.aidiscover.view.item.DiscoverRecommendItem
 import com.karrel.aidiscover.viewmodel.AiDiscoverViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_ai_discover.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -46,62 +48,14 @@ class AiDiscoverFragment : Fragment() {
             return metrics.widthPixels
         }
 
-    private val selectedQueue = ArrayDeque<DiscoverRecommendItem>()
-
     private val viewModel: AiDiscoverViewModel = AiDiscoverViewModel()
 
-    private val onDiscoverItemClickListener: ((index: Int, item: DiscoverRecommendItem) -> Unit) = { index: Int, item: DiscoverRecommendItem ->
+    private val onDiscoverItemClickListener: ((index: Int, item: DiscoverRecommendItem) -> Unit) =
+        { index: Int, item: DiscoverRecommendItem ->
 
-        viewModel.addSelectedItem(index, item)
-
-        addSelectedItem(discoverItemList[index])
-
-        discoverItemList.removeAt(index)
-        discoverImageController.requestModelBuild()
-
-        val isSelectedAll = selectedQueue.size == 5
-        if(isSelectedAll){
-            showProgress()
-            mixCandidate()
+            viewModel.selectDiscoverItem(item)
         }
-    }
 
-    private fun showProgress() {
-        progress.isVisible = true
-        ervAiDiscover.isVisible = false
-    }
-
-    private fun mixCandidate() {
-        Observable.timer(2, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .onDestroy(this)
-            .subscribe {
-                startActivity<AiMixActivity>()
-            }
-    }
-
-    private var discoverItemList = createItemList()
-
-    private fun addSelectedItem(item: DiscoverRecommendItem){
-        selectedQueue.add(item)
-
-        selectedImageController.setData(selectedQueue.toList())
-    }
-
-    private fun createItemList() = arrayListOf(
-            DiscoverRecommendItem(R.drawable.woman1, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman2, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman3, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman4, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman5, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman6, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman7, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman8, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman9, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman10, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman11, "Annbel, 20"),
-            DiscoverRecommendItem(R.drawable.woman12, "Annbel, 20")
-        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,12 +71,83 @@ class AiDiscoverFragment : Fragment() {
         setupSelectedProfileRecyclerView()
         setupAiDiscoverRecyclerView()
 
-        btnHistory.setOnClickListener {
-            discoverItemList = createItemList()
-            discoverImageController.setData(discoverItemList)
-            discoverImageController.requestModelBuild()
-            startDiscoverRecyclerViewAnim()
-        }
+        setupButtonEvents()
+
+        setupViewModel()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        initAiDiscoverUI()
+        loadMixCandidator()
+    }
+
+    private fun setupButtonEvents() {
+        btnHistory.debouncedClicks()
+            .onDestroy(this)
+            .subscribe {
+                // todo clicked history
+            }
+    }
+
+    private fun setupViewModel() {
+        viewModel.observeMixComplete.observeOn(AndroidSchedulers.mainThread())
+            .onDestroy(this)
+            .subscribe({
+                startActivity<AiMixActivity>()
+            }, {
+                it.printStackTrace()
+            })
+
+        viewModel.observeStartMixItem.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onDestroy(this)
+            .subscribe({
+                onStartMixCandidator()
+            }, {
+                it.printStackTrace()
+            })
+
+
+        viewModel.observeSelectedItem
+            .observeOn(AndroidSchedulers.mainThread())
+            .onDestroy(this)
+            .subscribe({ list ->
+                updateSelectedList(list)
+            }, {
+                it.printStackTrace()
+            })
+
+
+        viewModel.observeCandidatorItem
+            .observeOn(AndroidSchedulers.mainThread())
+            .onDestroy(this)
+            .subscribe({ list ->
+                discoverImageController.setData(list)
+                discoverImageController.requestModelBuild()
+            }, {
+                it.printStackTrace()
+            })
+    }
+
+    private fun updateSelectedList(list: List<DiscoverRecommendItem>?) {
+        selectedImageController.setData(list)
+    }
+
+    private fun onStartMixCandidator() {
+        progress.isVisible = true
+        ervAiDiscover.isVisible = false
+    }
+
+    private fun initAiDiscoverUI(){
+        viewModel.clearSelecteItem()
+        progress.isVisible = false
+        ervAiDiscover.isVisible = true
+    }
+
+    private fun loadMixCandidator() {
+        viewModel.loadMixCandidater()
     }
 
     private fun setupAiDiscoverRecyclerView() {
@@ -130,12 +155,11 @@ class AiDiscoverFragment : Fragment() {
             layoutManager = discoverLayoutManager
 
             setControllerAndBuildModels(discoverImageController)
-//            setController(discoverImageController)
         }
 
         startDiscoverRecyclerViewAnim()
 
-        discoverImageController.setData(discoverItemList)
+        discoverImageController.setData(emptyList())
         discoverImageController.requestModelBuild()
     }
 

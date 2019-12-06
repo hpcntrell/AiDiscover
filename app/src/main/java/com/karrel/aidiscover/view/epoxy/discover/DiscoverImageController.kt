@@ -45,7 +45,7 @@ class DiscoverImageController(private val context: Context) :
                 image(item.resId)
                 name(item.name)
                 onClickListener {
-                    onItemClickListener?.invoke(index, item)
+                    onItemClickListener?.invoke(index, data!![index])
                 }
             }
         }
